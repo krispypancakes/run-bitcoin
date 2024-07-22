@@ -62,6 +62,8 @@ wget <the link you copied>
 
 ## verify the download
 
+Also refer to this manual on [bitcoin-core.org](https://bitcoincore.org/en/download/)
+
 Download digital signatures and fingerprints from the website.
 
 ```
@@ -95,9 +97,14 @@ Good signature from <bitcoin dev>
 Primary key fingerprint: <key>
 ```
 
+Extract the download:
+
+```
+tar -xf bitcoin-...-aarch64-linux-gnu.tar.gz
+```
 
 ## mounting the external ssd
-
+Plug in the SSD card and run ``
 
 ## configuration
 
