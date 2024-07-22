@@ -104,8 +104,79 @@ tar -xf bitcoin-...-aarch64-linux-gnu.tar.gz
 ```
 
 ## mounting the external ssd
-Plug in the SSD card and run ``
+
+Plug in the SSD card. Check name and mount.
+
+```
+sudo sfdisk -l
+```
+My mountable device is `/dev/sda1`.
+
+Create a data directory and mount the device to it.
+
+```
+mkdir data
+sudo mount -o uid=<user name>,gid=<group id> /dev/sda1 data/
+```
+
+Explanation:
+-o : options
+uid: user id, enter your username
+gid: group id, also enter your username
+/dev/sda1: our device
+data/: the directory to mount to.
+
+We need the mounted directory to be owned by your user.
+
+## install bitcoin knots
+
+```
+sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-27.1.knots20240621/bin/*
+```
+
 
 ## configuration
 
 ## run it
+
+```
+bitcoind -datadir=/home/<your user>/btc/data/.bitcoin -daemon
+```
+
+Check status:
+
+```
+bitcoin-cli -datadir=/home/<your user>/btc/data/.bitcoin getblockchaininfo
+```
+
+The process will log to the file `/home/<your user>/btc/data/.bitcoin/debug.log` relentlessly.
+That's why we set up a cronjob to clear the content of the log file to not crash the node.
+
+```
+EDITOR=vim crontab -e
+```
+
+Then add following line:
+
+```
+0 0 */2 * * > /home/<your user>/btc/data/.bitcoin/debug.log
+```
+Save and exit. (:wq lol)
+
+Check with `crontab -l` if the job was created.
+
+
+FINALLY RUN IT:
+
+```
+bitcoind -datadir=/home/<your user>/btc/data/.bitcoin -daemon
+```
+
+Verify that it's running and check the logs:
+
+```
+bitcoin-cli -datadir=/home/<your user>/btc/data/.bitcoin getblockchaininfo
+tail -f btc/data/.bitcoin/debug.log
+```
+
+Here you go. You should be set.
