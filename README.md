@@ -24,7 +24,7 @@ Wait until it says: Write Successful.
 Inject sd card into pi and power on.
 
 
-## connect to Pi
+# Connect to Pi
 
 Connect to your Pi using:
 
@@ -153,7 +153,7 @@ rpcpassword=<your password>
 ```
 Create a user and a password to increase security.
 
-## run it
+# Run it
 
 ```
 bitcoind -datadir=/home/<your user>/btc/data/.bitcoin -daemon
