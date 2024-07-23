@@ -148,7 +148,10 @@ A few things need to be adjusted in the config file `btc/data/.bitcoin`
 server=1
 daemon=1
 rpcallowid=127.0.0.1
+rpcuser=<your user>
+rpcpassword=<your password>
 ```
+Create a user and a password to increase security.
 
 ## run it
 
