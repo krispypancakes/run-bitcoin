@@ -112,15 +112,22 @@ sudo sfdisk -l
 ```
 My mountable device is `/dev/sda1`.
 
-Create a data directory and mount the device to it.
+Create a data directory `mkdir data` and create a script `mount_disk.sh` to mount the device to it.
 
 ```
-mkdir data
-sudo mount -o uid=<user name>,gid=<group id> /dev/sda1 data/
+#!/bin/bash
+sudo mount -o rw,uid=$(whoami),gid=$(whoami) /dev/sda1 data/
+```
+After creating the script, add rights to be able to execute it and run.
+
+```
+chmod +x mount_disk.sh
+./mount_disk.sh
 ```
 
 Explanation:
 -o : options
+rw: read and write access
 uid: user id, enter your username
 gid: group id, also enter your username
 /dev/sda1: our device
@@ -136,6 +143,12 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin bitcoin-27.1.knots2024062
 
 
 ## configuration
+A few things need to be adjusted in the config file `btc/data/.bitcoin`
+```
+server=1
+daemon=1
+rpcallowid=127.0.0.1
+```
 
 ## run it
 
